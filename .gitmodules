@@ -1,0 +1,3 @@
+[submodule "themes/next-masahigo"]
+	path = themes/next-masahigo
+	url = https://github.com/masahigo/hexo-theme-next
