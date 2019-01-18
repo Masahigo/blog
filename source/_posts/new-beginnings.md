@@ -44,7 +44,7 @@ So after acquiring an organization in Cloud IAM and creating the _DM Creation Pr
 
 Since I was also using Cloud Build for executing the Deployment Manager deployment I needed to ensure it has sufficient permissions in the _DM Creation Project_. You can find the instructions [here](https://github.com/Masahigo/blog-infra/tree/master/project_creation#enabling-cloud-build).
 
-{% asset_img cb-service-account-project-level-permissions.PNG CB Service ACcount Project level permissions %}
+{% asset_img cb-service-account-project-level-permissions.png CB Service ACcount Project level permissions %}
 
 In addition you need to give following Cloud IAM roles for the _CB Service Account_ on the **organization level** to run `gcloud` commands for dynamically populating environment variables
 
@@ -53,7 +53,7 @@ In addition you need to give following Cloud IAM roles for the _CB Service Accou
 
 As a result you should get something like this
 
-{% asset_img project-creation-sa-permissions-org-level.PNG Project creation SA permissions on the organization level %}
+{% asset_img project-creation-sa-permissions-org-level.png Project creation SA permissions on the organization level %}
 
 ### CI/CD pipelines using Cloud Build
 
