@@ -4,20 +4,18 @@ steps:
   - clone
   - --recurse-submodules
   - https://github.com/Masahigo/blog.git
+  - .
 - name: 'gcr.io/cloud-builders/npm'
   args: ['install']
-  dir: 'blog'
 - name: 'gcr.io/$PROJECT_ID/hexo'
   args: ['generate']
-  dir: 'blog'
 - name: 'bash'
   args:
   - 'cp'
   - '-R' 
   - 'public/'
   - 'CI/www/'
-  dir: 'blog'
 - name: "gcr.io/cloud-builders/gcloud"
   args: ["app", "deploy"]
-  dir: 'blog/CI'
+  dir: 'CI'
   timeout: "300s"
