@@ -86,7 +86,7 @@ theme_config:
   seo: true
   menu:
     home: / || home
-    #about: /about/ || user
+    about: /about/ || user
     archives: /archives/ || archive
   scheme: Muse
   social:
