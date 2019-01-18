@@ -17,8 +17,8 @@ This blog is a about my journey into the world of modern devops with an MS twist
 
 I had been thinking about starting my own blog for several years already but had not had the proper time nor motivation to get started with it. After jumping into a new company it felt like the right time - "just do it".
 
-1. _where am I going to host this website_? I had been learning about **Google Cloud Platform** recently and was anxious to try out something real there so this was a no brainer to me.
+1. _where am I going to host this website?_ I had been learning about **Google Cloud Platform** recently and was anxious to try out something real there so this was a no brainer to me.
 
-1. _what platform am I going to use for the blog or will I build it myself_. I had been reading about JAMStack a year ago and found one particular static website generator called **Hexo** which felt like a good choice so I went with that.
+1. _what platform am I going to use for the blog or will I build it myself?_ I had been reading about JAMStack a year ago and found one particular static website generator called **Hexo** which felt like a good choice so I went with that.
 
-1. _what service in GCP should I utilize for hosting a static website_? After going through all the possible options the **App Engine (Standard)** seemed like the best option - PaaS service that supports CNAMEs and SSL certs, what's not to like? It also downscales well so running cost is minimal.
+1. _what service in GCP should I utilize for hosting a static website?_ After going through all the possible options the **App Engine (Standard)** seemed like the best option - PaaS service that supports CNAMEs and SSL certs, what's not to like? It also downscales well so running cost is minimal.
