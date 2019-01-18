@@ -5,7 +5,7 @@ tags:
 - Google Cloud Platform
 ---
 
-# Prologue
+## Prologue
 
 After working over 10 years in different roles in the IT industry I felt like I needed a change. I needed to break the routine and jump out of my comfort zones into the unknown. I had started to fall in love with devops and more often found myself avoiding other areas in projects. How cool would it be if I could just concentrate into this one area and develop my skills there to the fullest?
 
