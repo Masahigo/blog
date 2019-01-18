@@ -1,6 +1,6 @@
 ---
 title: New beginnings
-date: 2019-01-18 16:00:32
+date: 2019-01-18 21:46:30
 tags:
 - Google Cloud Platform
 - Deployment Manager
@@ -37,8 +37,6 @@ Anyone who has used GCP knows that everything begins with a project. So I starte
 
 I ended up investing a lot more time into this than I had planned but I felt this might become handy in the future because eventually every GCP customer has to deal with this when they start their journey with Google Cloud Platform. You have to be able to manage your projects properly when you start advancing further than POCs.
 
-#### Provisioning with templates
-
 So after acquiring an organization in Cloud IAM and creating the _DM Creation Project_ - yes, there parts are done manually - I created a Deployment Manager (DM) template and schema for defining the actual GCP project where the website would be deployed.
 
 - DM template for creating new projects: [project-creation-template.jinja](https://github.com/Masahigo/blog-infra/blob/master/project_creation/project-creation-template.jinja)
@@ -46,13 +44,46 @@ So after acquiring an organization in Cloud IAM and creating the _DM Creation Pr
 
 Since I was also using Cloud Build for executing the Deployment Manager deployment I needed to ensure it has sufficient permissions in the _DM Creation Project_. You can find the instructions [here](https://github.com/Masahigo/blog-infra/tree/master/project_creation#enabling-cloud-build).
 
-!Put image here!
+{% asset_img cb-service-account-project-level-permissions.PNG CB Service ACcount Project level permissions %}
 
-In addition you need to give following Cloud IAM roles for the _CB Service Account_ on the **organization level**
+In addition you need to give following Cloud IAM roles for the _CB Service Account_ on the **organization level** to run `gcloud` commands for dynamically populating environment variables
 
 - Billing Account Viewer
 - Organization Viewer
 
-!Put another image here!
+As a result you should get something like this
 
-### Taming the Google Cloud Build
+{% asset_img project-creation-sa-permissions-org-level.PNG Project creation SA permissions on the organization level %}
+
+### CI/CD pipelines using Cloud Build
+
+To achieve a fully automated infrastructure provisioning would have required Cloud Build Triggers for the [blog-infra](https://github.com/Masahigo/blog-infra) repository but as I was learning by doing I decided to leave this part out from CI/CD for now. I did however create Google Cloud Build config files and submitted builds manually using those. You can find those from the README.
+
+I stumbled into some pain when trying to get environment variables working directly from build config and ended up in following kind of solution:
+
+- Declare the environment variables in a [separate bash script](https://github.com/Masahigo/blog-infra/blob/master/project_creation/create-new-project.sh) where also `gcloud` command is executed along with the variables passed in to properties
+
+```sh
+export GCP_PROJ_ID=`gcloud info |tr -d '[]' | awk '/project:/ {print $2}'`
+export GCP_OWNER_ACCOUNT=`gcloud projects get-iam-policy $GCP_PROJ_ID --flatten='bindings[].members' --format='value(bindings.members)' --filter='bindings.role:roles/owner'`
+export GCP_BILLING_ACCOUNT_ID=`gcloud beta billing accounts list --filter "My Billing Account" --format='value(ACCOUNT_ID)'`
+export GCP_ORG_ID=`gcloud organizations list --filter "msdevopsdude.com" --format='value(ID)'`
+
+gcloud deployment-manager deployments create $GCP_DEPLOYMENT_NAME --template project-creation-template.jinja --properties="organization-id:'$GCP_ORG_ID',billing-account-id:$GCP_BILLING_ACCOUNT_ID,project-name:'$GCP_NEW_PROJECT_NAME',owner-account:'$GCP_OWNER_ACCOUNT'"
+```
+
+- Execute the script from [gcloud builder](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/gcloud) using a different entrypoint
+
+```yaml
+steps:
+- name: gcr.io/cloud-builders/gcloud
+  entrypoint: /bin/bash
+  args:
+  - -c
+  - ./create-new-project.sh
+  env:
+  - GCP_DEPLOYMENT_NAME=ms-devops-dude
+  - GCP_NEW_PROJECT_NAME=MS DevOps Dude
+```
+
+TODO: CI/CD pipeline for the website, wrap up..
