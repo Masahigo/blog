@@ -74,7 +74,7 @@ Here's a recap of how the CI/CD plan
 
 _Disclaimer: To achieve a fully automated infrastructure provisioning would have required Cloud Build Triggers for the [blog-infra](https://github.com/Masahigo/blog-infra) repository but as I was learning by doing I decided to leave this part out from CI/CD for now. I did however create Google Cloud Build config files and submitted builds manually using those._
 
-The infrastructure for the blog is very simple: one App Engine service hosting the static website. On top of that I'm utilizing [Cloud DNS](https://cloud.google.com/dns/docs/?hl=fi) for managing the DNS zone and records. For now I'm just using the root domain but my plan is to learn how to register subdomains dynamically and utilize those for eg. dev/qa environments.
+The infrastructure for the blog is very simple: one [App Engine service hosting the static website](https://cloud.google.com/appengine/docs/standard/python/getting-started/hosting-a-static-website). On top of that I'm utilizing [Cloud DNS](https://cloud.google.com/dns/docs/?hl=fi) for managing the DNS zone and records. For now I'm just using the root domain but my plan is to learn how to register subdomains dynamically and utilize those for eg. dev/qa environments.
 
 Here are the commands used for the initial provisioning:
 
@@ -82,9 +82,43 @@ Here are the commands used for the initial provisioning:
 
 As you probaly noticed the App Engine itself did not require anything else than initialization in the project.
 
-#### Deploying the blog
+#### Deploying the blog to App Engine
 
+This was the easy part. I had already figured out the commands I needed to run in the build context:
 
+```sh
+git clone --recurse-submodules https://github.com/Masahigo/blog.git
+cd blog
+npm install
+npm install -g hexo-cli
+hexo generate
+cp -R blog/public/ CI/www/
+gcloud app deploy ./CI/app.yaml
+```
+
+Without going into too much details a short explanation of the main points
+
+- There's one Git submodule which points to a fork of Hexo's [NeXT theme](https://github.com/Masahigo/hexo-theme-next)
+- The command `hexo generate` creates the static website content and renders it to subfolder `/public`
+- This rendered version of the blog is then copied under subfolder `CI/www` because the App Engine expects all static files to be located under `www` subfolder
+- The subfolder `CI` already contains the App Engine configuration for the static website: `app.yaml`
+- The command `gcloud app deploy` packages the files in `www` folder and deploys those to the _default_ App Engine service
+
+{% include_code app.yaml lang:yaml app-config-for-app-engine.yaml %}
+
+The build config for executing the same commands resulted in
+
+{% include_code cloudbuild.yaml lang:yaml build-config-for-blog.yaml %}
+
+Testing the deployment from CLI:
+
+```sh
+gcloud builds submit --config=cloudbuild.yaml . --project=ms-devops-dude
+```
+
+After this it was fairly straightforward to create a Build Trigger to do the same every time there's new commit to _master_ in the blog's repository.
+
+{% asset_img gcp-build-trigger-for-blog.png Build Trigger for blog website %}
 
 #### Some lessons learned
 
@@ -128,6 +162,8 @@ If you are referring to Git submodules in your main repo those are not checked o
 
 {% include_code Google cloud build config - include git submodules step lang:yaml build-step-include-submodules.yaml %}
 
-## More to come
+## Closing words
 
-...
+My first impression on Google Cloud Build is quite positive. It gets the job done and it's Docker support is superior. I will definitely continue my experimentations on it.
+
+I hope you have enjoyed reading my first blog post. Until next time!
