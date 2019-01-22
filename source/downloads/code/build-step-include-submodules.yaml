@@ -1,0 +1,6 @@
+steps:
+- name: 'gcr.io/cloud-builders/git'
+  args:
+  - clone
+  - --recurse-submodules
+  - https://github.com/Masahigo/blog.git
