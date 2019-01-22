@@ -80,11 +80,11 @@ Here are the commands used for the initial provisioning:
 
 {% include_code Initial provisioning lang:sh initial-provisioning.sh %}
 
-As you probaly noticed the App Engine itself did not require anything else than initialization for the project.
+As you probaly noticed the App Engine itself did not require anything else than initialization in the project.
 
 #### Deploying the blog
 
-...
+
 
 #### Some lessons learned
 
@@ -92,9 +92,9 @@ As you can imagine not everything went like in the movies when working on my fir
 
 ##### Environment Variables
 
-I stumbled into some pain when trying to get environment variables working directly from build config and ended up in following kind of solution:
+The out-of-the-box environment variables in [Deployment Manager](https://cloud.google.com/deployment-manager/docs/configuration/templates/use-environment-variables) are quite limited. It also turned out that running `gcloud` commands in build step context and storing those into environment variables on the fly was not possibly. (Well, it would have required [substitutions](https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values) but those can only persist static values)
 
-Declare the environment variables in a [separate bash script](https://github.com/Masahigo/blog-infra/blob/master/project_creation/create-new-project.sh) where also `gcloud` command is called along with the variables passed in as template properties:
+I ended up in following kind of solution; Declare the environment variables in a [separate bash script](https://github.com/Masahigo/blog-infra/blob/master/project_creation/create-new-project.sh) where also `gcloud` command is called along with the variables passed in as template properties:
 
 ```sh
 export GCP_PROJ_ID=`gcloud info |tr -d '[]' | awk '/project:/ {print $2}'`
@@ -108,7 +108,7 @@ gcloud deployment-manager deployments create $GCP_DEPLOYMENT_NAME --template pro
 
 ##### Utilize the entrypoint in build config
 
-Execute the script from [gcloud builder](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/gcloud) using a different entrypoint:
+Google Cloud Builders allow you to override the default `entrypoint` in Docker. I found this very useful when executing bash script using [gcloud builder](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/gcloud):
 
 ```yaml
 steps:
@@ -124,7 +124,7 @@ steps:
 
 ##### Git submodules
 
-If you are referring to Git submodules in your main repo those are not checked out by default in Google Cloud Build. To get around this you can specify one additional build step using the [git builder](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/git):
+If you are referring to Git submodules in your main repo those are not checked out by default in Google Cloud Build. To get around this you can specify one additional build step in the beginning of the pipeline using the [git builder](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/git):
 
 {% include_code Google cloud build config - include git submodules step lang:yaml build-step-include-submodules.yaml %}
 
