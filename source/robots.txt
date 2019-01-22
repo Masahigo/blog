@@ -1,0 +1,3 @@
+useragent: "*"
+disallow: /
+sitemap: /sitemap.xml
