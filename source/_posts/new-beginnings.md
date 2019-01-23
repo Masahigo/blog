@@ -168,7 +168,7 @@ If you are referring to Git submodules in your main repo those are not checked o
 
 #### Handle GAE appspot.com redirection for naked domain
 
-Last thing I wanted to fix before going live with this website was to redirect the default App Engine url to my naked domain (msdevopsdude.com). There was a [blog post](https://code.luasoftware.com/tutorials/google-app-engine/appengine-redirect-domain/) about this but it didn't really cover my scenario that well.
+Last thing I wanted to fix before going live with this website was to redirect the default App Engine url (ms-devops-dude.appspot.com) to my naked domain (msdevopsdude.com). There was a [blog post](https://code.luasoftware.com/tutorials/google-app-engine/appengine-redirect-domain/) about this but it didn't really cover my scenario that well.
 
 **Here's what you basically need to do**
 
