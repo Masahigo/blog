@@ -18,6 +18,6 @@ steps:
   - 'CI/www/'
   dir: 'blog'
 - name: "gcr.io/cloud-builders/gcloud"
-  args: ["app", "deploy"]
+  args: ["app", "deploy", "app.yaml", "redirect.yaml", "dispatch.yaml"]
   dir: 'blog/CI'
   timeout: "300s"

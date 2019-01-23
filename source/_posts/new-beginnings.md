@@ -10,6 +10,7 @@ tags:
 - Infrastructure as Code
 - Cloud IAM
 - Google Cloud Build
+- Google App Engine
 ---
 
 ## Prologue
@@ -31,7 +32,7 @@ I had been thinking about starting my own blog for several years already but had
 
 1. _What platform should I use for the blog?_ I had been reading about [JAMStack](https://jamstack.org/) a year ago and found one particular static website generator called **Hexo** which felt like a good choice so I went with that.
 
-1. _What service in GCP should I utilize for hosting a static website?_ After going through all the possible options the **App Engine (Standard)** seemed like the best option - PaaS service that supports CNAMEs and SSL certs, what's not to like? It also downscales well so running cost is minimal.
+1. _What service in GCP should I utilize for hosting a static website?_ After going through all the possible options the **Google App Engine (GAE)** seemed like the best option - PaaS service that supports custom domains and SSL certs, what's not to like? It also downscales well so running cost is minimal.
 
 It was time to start working on the [infrastructure](https://github.com/Masahigo/blog-infra).
 
@@ -123,11 +124,11 @@ After this it was fairly straightforward to create a Build Trigger to do the sam
 
 {% asset_img gcp-build-trigger-for-blog.png Build Trigger for blog website %}
 
-#### Some lessons learned
+### Some lessons learned
 
 As you can imagine not everything went like in the movies when working on my first CI/CD pipelines on GCP. Here's a couple of obstacles I encountered along the way.
 
-##### Environment Variables
+#### Environment Variables
 
 The out-of-the-box environment variables in [Deployment Manager](https://cloud.google.com/deployment-manager/docs/configuration/templates/use-environment-variables) are quite limited. It also turned out that running `gcloud` commands in build step context and storing those into environment variables on the fly was not possibly. (Well, it would have required [substitutions](https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values) but those can only persist static values)
 
@@ -143,7 +144,7 @@ gcloud deployment-manager deployments create $GCP_DEPLOYMENT_NAME --template pro
 --properties="organization-id:'$GCP_ORG_ID',billing-account-id:$GCP_BILLING_ACCOUNT_ID,project-name:'$GCP_NEW_PROJECT_NAME',owner-account:'$GCP_OWNER_ACCOUNT'"
 ```
 
-##### Utilize the entrypoint in build config
+#### Utilize the entrypoint in build config
 
 Google Cloud Builders allow you to override the default `entrypoint` in Docker. I found this very useful when executing bash script using [gcloud builder](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/gcloud):
 
@@ -159,14 +160,37 @@ steps:
   - GCP_NEW_PROJECT_NAME=MS DevOps Dude
 ```
 
-##### Git submodules
+#### Git submodules
 
 If you are referring to Git submodules in your main repo those are not checked out by default in Google Cloud Build. To get around this you can specify one additional build step in the beginning of the pipeline using the [git builder](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/git):
 
 {% include_code Google cloud build config - include git submodules step lang:yaml build-step-include-submodules.yaml %}
 
+#### Handle GAE appspot.com redirection for naked domain
+
+Last thing I wanted to fix before going live with this website was to redirect the default App Engine url to my naked domain (msdevopsdude.com). There was a [blog post](https://code.luasoftware.com/tutorials/google-app-engine/appengine-redirect-domain/) about this but it didn't really cover my scenario that well.
+
+**Here's what you basically need to do**
+
+Create _a separate GAE service_ in my case I call it `redirect`
+
+{% include_code redirect.yaml lang:yaml redirect-service-for-app-engine.yaml %}
+
+Create `main.py` for the 301 logic
+
+{% include_code main.py lang:python app-engine-redirect-logic.py %}
+
+Override the routing rules in `dispatch.yaml`
+
+```yaml
+dispatch:
+  - url: "ms-devops-dude.appspot.com/*"
+    service: redirect
+
+```
+
 ## Closing words
 
-My first impression on Google Cloud Build is quite positive. It gets the job done and it's Docker support is superior. I will definitely continue my experimentations on it.
+My first impression on Google Cloud Build is quite positive. It gets the job done and it's Docker support is superior. Google Cloud Build's [pricing](https://cloud.google.com/cloud-build/pricing) is also attractive: you get 120 minutes of free build time __per day__ and it allows you to run up to 10 concurrent builds __per project__. I will definitely continue my experimentations on it.
 
 I hope you have enjoyed reading my first blog post. Until next time!
