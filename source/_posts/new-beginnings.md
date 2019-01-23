@@ -64,7 +64,7 @@ As a result you should get something like this
 
 {% asset_img project-creation-sa-permissions-org-level.png Project creation SA permissions on the organization level %}
 
-Here's a recap of how the CI/CD plan
+Here's a recap of the CI/CD plan
 
 - Provision the GCP Project for the blog from the _DM Creation Project_ using _CB Service Account_
 - Provision the initial infrastucture for the blog from the _actual GCP Project_ **using it's own** _CB Service Account_
