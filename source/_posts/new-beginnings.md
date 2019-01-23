@@ -1,6 +1,9 @@
 ---
 title: New beginnings
-date: 2019-01-18 21:46:30
+date: 2019-01-23 14:00:00
+categories:
+- CI/CD
+- GCP
 tags:
 - Google Cloud Platform
 - Deployment Manager
