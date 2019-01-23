@@ -11,9 +11,9 @@ tags:
 
 ## Prologue
 
-After working over 10 years in different roles in the IT industry I felt like I needed a change. I needed to break the routine and jump out of my comfort zones into the unknown. I had started to fall in love with devops and more often found myself avoiding other areas in projects. How cool would it be if I could just concentrate into this one area and develop my skills there to the fullest?
+After working over 10 years in different roles in the IT industry I felt like I needed a change. I needed to break the routine and jump out of my comfort zones into the unknown. I had started to lean towards devops and more often found myself avoiding other areas in projects. How cool would it be if I could just concentrate into this one area and develop my skills there to the fullest?
 
-Well, my wish became reality when I joined [PolarSquad](https://www.polarsquad.com/) on the 1st of October 2018. This was the biggest leap of faith I have done during my career so far but it has felt like the right one from day one. Docker is no longer a stranger to me and running builds using containers is super nice. Coming from MS tech background where containers are not yet an everyday thing there's always something new to learn.
+Well, my wish became reality when I joined [PolarSquad](https://www.polarsquad.com/) on the 1st of October 2018. This was the biggest leap of faith I have done during my career so far but it has felt like the right one from day one. Docker is no longer a stranger to me and running builds using containers feels already natural to me. Coming from MS tech background where containers are not yet an everyday thing there's always something new to learn.
 
 ## How this blog was born
 
@@ -34,7 +34,7 @@ It was time to start working on the [infrastructure](https://github.com/Masahigo
 
 ### First you need a project
 
-Anyone who has used GCP knows that everything begins with a project. So I started by figuring out how can I automate the creation of projects. I like to avoid manual steps whenever possible. It turned out to require couple of things
+Anyone who has used GCP knows that everything begins with a project. So I started by figuring out how can I automate the creation of projects. I like to avoid manual steps whenever possible. It turned out to require couple of things.
 
 1. **Organization**: if you want to automate the creation of projects in GCP you really need an organization in Cloud IAM. I had to create Cloud Identity for myself by validating it through the custom domain I registered for this website. It was free however.
 
