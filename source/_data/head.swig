@@ -14,3 +14,5 @@ window.cookieconsent.initialise({
   "theme": "edgeless"
 })});
 </script>
+
+<meta property="og:image" content="https://msdevopsdude.com/images/ps-logo.png">
