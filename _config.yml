@@ -87,6 +87,8 @@ theme_config:
   menu:
     home: / || home
     about: /about/ || user
+    tags: /tags/ || tags
+    categories: /categories/ || th
     archives: /archives/ || archive
   scheme: Muse
   social:
