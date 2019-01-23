@@ -92,6 +92,9 @@ theme_config:
   social:
     GitHub: https://github.com/masahigo || github
   google_analytics: UA-132962403-1
+  custom_file_path:
+    head: source/_data/head.swig
+    styles: source/_data/styles.styl
     
 
 filter_optimize:
