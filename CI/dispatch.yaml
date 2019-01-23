@@ -1,3 +1,3 @@
 dispatch:
   - url: "ms-devops-dude.appspot.com/*"
-    service: default
+    service: redirect
