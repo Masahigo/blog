@@ -1,3 +1,3 @@
-useragent: "*"
-disallow: /
+User-agent: *
+disallow:
 sitemap: /sitemap.xml
