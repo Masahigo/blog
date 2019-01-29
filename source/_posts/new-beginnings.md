@@ -1,4 +1,7 @@
 ---
+layout: photo
+photos:
+ - images/ps-logo-small.png
 title: New beginnings
 date: 2019-01-23 14:00:00
 description: After working over 10 years in different roles in the IT industry I felt like I needed a change. I needed to break the routine and jump out of my comfort zones into the unknown. 
