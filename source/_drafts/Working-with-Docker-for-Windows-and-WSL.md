@@ -17,7 +17,7 @@ Being a .NET developer in today's world requires more than just understanding th
 
 <!-- more -->
 
-## Words for motivation
+## Words of motivation
 
 There is a certain learning curve when it comes to adopting OS technologies. Especially if you've worked previously relying on Microsoft products and graphical UIs only. It starts from the Linux basics but boils down to the fact that you have to be comfortable with command line tools. And no, experience in PowerShell scripting doesn't help that much. Best way is to learn by doing.
 

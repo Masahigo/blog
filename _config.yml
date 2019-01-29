@@ -103,7 +103,7 @@ theme_config:
     apple_touch_icon:
     safari_pinned_tab: 
     #android_manifest: /images/manifest.json
-    #ms_browserconfig: /images/browserconfig.xmlcustom_logo:
+    #ms_browserconfig: /images/browserconfig.xml
   # todo: configure once logo is available
   custom_logo:
     enabled: false
