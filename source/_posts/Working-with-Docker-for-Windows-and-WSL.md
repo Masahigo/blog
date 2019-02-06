@@ -1,17 +1,19 @@
 ---
 layout: photo
-photos:
- - images/docker-for-windows.jpg
 title: Working with Docker for Windows and WSL
-categories:
-- Docker
-- Linux
 tags:
-- Docker for Windows
-- WSL
-- Cross-platform development
-- VSCode
+  - Docker for Windows
+  - WSL
+  - Cross-platform development
+  - VSCode
+photos:
+  - images/docker-for-windows.jpg
+categories:
+  - Docker
+  - Linux
+date: 2019-02-06 23:24:40
 ---
+
 
 Being a .NET developer in today's world requires more than just understanding the MS tech stack. OS based technologies have become defacto in many areas of software development. Microsoft is embracing the change and so should you.
 
