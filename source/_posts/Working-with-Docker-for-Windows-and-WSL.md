@@ -7,7 +7,7 @@ tags:
   - Cross-platform development
   - VSCode
 photos:
-  - images/docker-for-windows.jpg
+  - /images/docker-for-windows.jpg
 categories:
   - Docker
   - Linux

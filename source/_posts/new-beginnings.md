@@ -1,7 +1,7 @@
 ---
 layout: photo
 photos:
- - images/ps-logo-small.png
+ - /images/ps-logo-small.png
 title: New beginnings
 date: 2019-01-23 14:00:00
 categories:
