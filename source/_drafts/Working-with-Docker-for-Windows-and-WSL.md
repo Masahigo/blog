@@ -23,7 +23,7 @@ There is a certain learning curve when it comes to adopting OS technologies. Esp
 
 First time I had to face Linux in my working career was in a project where we used IaaS services from AWS for hosting a .NET based web application. You might be thinking where do you need Linux in this picture? Well, I learned that you can't get around it for things like _load balancing_, _ssl certificates_ and _bastion hosts_ to start with.
 
-And it doesn't stop there. Container technologies like _Docker_ and _Kubernetes, _CLI tools for public cloud platforms_, _test automation_, the whole front-end development ecosystem.. Modern software development is cross-platform nowadays.
+And it doesn't stop there. Container technologies like _Docker_ and _Kubernetes, _CLI tools for public cloud platforms_, _test automation_, the whole _front-end development ecosystem_.. Modern software development is cross-platform nowadays.
 
 ## Docker for Windows
 
@@ -58,7 +58,7 @@ root = /
 
 Having **Docker for Windows** installed on your machine enables you to run containers (both Linux and Windows based) just fine. But as you go through some Dockerfile examples and start experimenting with Linux based containers you'll notice that having a genuine `bash` would be awesome. Luckily Microsoft provides the `Linux subsystem` (WSL) out-of-the-box which can be enabled from under _Windows Features_. Next you'll want to install _Ubuntu_ app from Microsoft Store and configure it to use and there you go. Good instructions can be [found from here](https://nickjanetakis.com/blog/using-wsl-and-mobaxterm-to-create-a-linux-dev-environment-on-windows).
 
-`WSL` is a really powerful tool which enables you to work seamlessly with Linux - natively from within your host machine. You'll also want to install Docker there but connect to the daemon on the host machine to enable running Docker from both. Coupled with the volume share you have a full blown, Linux native development environment within your Windows. Helps a lot when you need to work with different scripting languages for instance.
+**WSL** is a really powerful tool which enables you to work seamlessly with Linux - natively from within your host machine. You'll also want to install Docker there but connect to the daemon on the host machine to enable running Docker from both. Coupled with the volume share you have a full blown, Linux native development environment within your Windows. Helps a lot when you need to work with different scripting languages for instance.
 
 Here's couple of additional tricks I found useful myself
 
@@ -66,3 +66,8 @@ Here's couple of additional tricks I found useful myself
 * [Enabling npm in WSL](https://blur.kr/2018/06/19/Resolve-npm-command-issue-on-WSL/)
 * [Case-sensitivity for volume mounts in WSL](https://blogs.msdn.microsoft.com/commandline/2018/06/14/improved-per-directory-case-sensitivity-support-in-wsl/)
 
+### What's next
+
+Having these tools in place is a real productivity boost for Windows users taking the leap into cross-platform development. But why settle for just `bash` when you can have **VSCode** - the ultimate IDE that works seamlessly from every developer's machine?
+
+I will cover this in more detail in my next blog post where you'll see how well **WSL** and **Docker** integrate with **VSCode**.
