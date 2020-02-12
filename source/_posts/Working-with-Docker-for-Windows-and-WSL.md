@@ -65,7 +65,7 @@ Having **Docker for Windows** installed on your machine enables you to run conta
 Here's couple of additional tricks I found useful myself
 
 * [Linking to your host machine's SSH keys from WSL](https://florianbrinkmann.com/en/3436/ssh-key-and-the-windows-subsystem-for-linux/)
-* [Enabling npm in WSL](https://blur.kr/2018/06/19/Resolve-npm-command-issue-on-WSL/)
+* [Using GIT version control under WSL bash](https://medium.com/faun/how-to-use-git-and-other-linux-tools-in-wsl-on-windows-4c0bffb68b35)
 * [Case-sensitivity for volume mounts in WSL](https://blogs.msdn.microsoft.com/commandline/2018/06/14/improved-per-directory-case-sensitivity-support-in-wsl/)
 
 ### What's next
