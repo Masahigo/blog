@@ -67,9 +67,3 @@ Here's couple of additional tricks I found useful myself
 * [Linking to your host machine's SSH keys from WSL](https://florianbrinkmann.com/en/3436/ssh-key-and-the-windows-subsystem-for-linux/)
 * [Using GIT version control under WSL bash](https://medium.com/faun/how-to-use-git-and-other-linux-tools-in-wsl-on-windows-4c0bffb68b35)
 * [Case-sensitivity for volume mounts in WSL](https://blogs.msdn.microsoft.com/commandline/2018/06/14/improved-per-directory-case-sensitivity-support-in-wsl/)
-
-### What's next
-
-Having these tools in place is a real productivity boost for Windows users taking the leap into cross-platform development. But why settle for just `bash` when you can have **VSCode** - the ultimate IDE that works seamlessly from every developer's machine?
-
-I will cover this in more detail in my next blog post where you'll see how well **WSL** and **Docker** integrate with **VSCode**.
