@@ -5,7 +5,6 @@ tags:
   - Docker for Windows
   - WSL
   - Cross-platform development
-  - VSCode
 photos:
   - /images/photos/docker-for-windows.jpg
 categories:
