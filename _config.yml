@@ -107,7 +107,7 @@ theme_config:
   # todo: configure once logo is available
   custom_logo:
     enabled: true
-    image: /images/devops-dude.png
+    image: /images/devops-dude-new.png
 
 filter_optimize:
   enable: true
