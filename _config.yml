@@ -98,8 +98,8 @@ theme_config:
     head: source/_data/head.swig
     styles: source/_data/styles.styl
   favicon:
-    small: /images/favicon-16x16-ps.png
-    medium: /images/favicon-32x32-ps.png
+    small: /images/favicon-16x16.png
+    medium: /images/favicon-32x32.png
     apple_touch_icon:
     safari_pinned_tab: 
     #android_manifest: /images/manifest.json
