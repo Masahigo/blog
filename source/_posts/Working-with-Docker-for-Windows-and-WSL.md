@@ -4,12 +4,12 @@ title: Working with Docker for Windows and WSL
 tags:
   - Docker for Windows
   - WSL
-  - Cross-platform development
 photos:
   - /images/photos/docker-for-windows.jpg
 categories:
   - Docker
   - Linux
+  - Cross-platform development
 date: 2019-02-06 23:24:40
 ---
 

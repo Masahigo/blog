@@ -56,7 +56,7 @@ $ az ad sp create-for-rbac --name ServicePrincipalName
 
 ```
 
-Save these credentials to a local environent file `.env.local`:
+Save these credentials to a local environment file `.env.local`:
 
 ```
 ARM_CLIENT_ID=<appId>

@@ -4,9 +4,6 @@ photos:
  - /images/photos/ps-logo-small.png
 title: New beginnings
 date: 2019-01-23 14:00:00
-categories:
-- CI/CD
-- GCP
 tags:
 - Google Cloud Platform
 - Deployment Manager
@@ -14,6 +11,9 @@ tags:
 - Cloud IAM
 - Google Cloud Build
 - Google App Engine
+categories:
+- CI/CD
+- GCP
 ---
 
 After working over 10 years in different roles in the IT industry I felt like I needed a change. I needed to break the routine and jump out of my comfort zones into the unknown.
