@@ -19,17 +19,17 @@ date: 2020-07-07 10:17:37
 
 
 
-Hosting your own RTMP endpoint through a Docker container in public cloud. I'll show you how to get started.
+Hosting your own RTMP endpoint through a Docker container in the public cloud. I'll show you how to get started.
 
 <!-- more -->
 
 ## Taking a hobby to the next level
 
-Live streaming has become way more common these days when most of us "digital workers" have switched to remote-only mode and everything happens virtual. I did my first (ever) live stream this spring as part of the [Global Azure Virtual 2020](https://virtual.globalazure.net/) virtual event. It really pushed me to figure out the practicalities around hosting a live stream and delivering it successfully. Preparation really is the key there and testing out things before hand is a must. I can really recommend trying it out - you will get out of your comfort zone for sure!
+Live streaming has become way more common these days when most of us "digital workers" have switched to the remote-only mode and everything happens virtually. I did my first (ever) live stream this spring as part of the [Global Azure Virtual 2020](https://virtual.globalazure.net/) virtual event. It really pushed me to figure out the practicalities around hosting a live stream and delivering it successfully. Preparation really is the key and testing out things beforehand is a must. I can really recommend trying it out - you will get out of your comfort zone for sure!
 
-Streaming the live video happened over a built-in RTMP endpoint in YouTube. This intrigued me to find out more about the subject. I have a special interest in video techniques, what can I say.
+Streaming the live video happened over a built-in RTMP endpoint on YouTube. This intrigued me to find out more about the subject. I have a special interest in video techniques, what can I say.
 
-So I have this commercial drone from DJI - the [Mavic 2 Pro](https://www.dji.com/mavic-2). It's pretty amazing, supports 4K video and has tons of features to choose from. I've been learning how to use it for over a year now, starting from the very basics and diving more deep into customizing the camera settings for different lighting conditions and learning away from the auto focus. 
+So I have this commercial drone from DJI - [the Mavic 2 Pro](https://www.dji.com/mavic-2). It's pretty amazing, supports 4K video and has tons of features to choose from. I've been learning how to use it for over a year now, starting from the very basics and diving more deeply into customizing the camera settings for different lighting conditions and learning away from the autofocus. 
 
 Going through the menus and settings in the _DJI GO 4_ app I couldn't help noticing the section under General Settings where it says **Choose Live Streaming Platform**
 
@@ -57,7 +57,7 @@ My arguments were
 - Making the stream private
 - It's more fun to build it yourself
 
-I started to look for different options in the field. Most common approach people were using was to setup Media Streaming Server on top of NGinx. It seemed a little complex for my needs and I wanted to be able to customize the logic if needed. Plus I didn't like the fact it required introducting NGinx. Then I found this [Node Media Server](https://github.com/illuspas/Node-Media-Server) from GitHub and was sold. It was simple to configure and runs on Node.js.
+I started to look for different options in the field. The most common approach people were using was to setup Media Streaming Server on top of Nginx. It seemed a little complex for my needs and I wanted to be able to customize the logic if needed. Plus I didn't like the fact it required introducing NGinx. Then I found this [Node Media Server](https://github.com/illuspas/Node-Media-Server) from GitHub and was sold. It was simple to configure and runs on Node.js.
 
 Node Media Server can do a whole lot of other things as well but I'm concentrating here on a couple its features in particular since I needed it to consume a **single live stream**
 
@@ -87,11 +87,11 @@ const config = {
 };
 ```
 
-The http port is used for Web Admin Panel. The version of NMS (v2.1.8) I was using didn't support disabling it.
+The HTTP port is used for the Web Admin Panel. The version of NMS (v2.1.8) I was using didn't support disabling it.
 
 ### Using ffmpeg to capture video recordings
 
-One of the libraries Node Media Server (NMS) utilizes under the hood is [ffmpeg](https://ffmpeg.org/). For me this was the single most important thing to get right because it's responsible for generating the video record (MP4) from the stream.
+One of the libraries Node Media Server (NMS) utilizes under the hood is [ffmpeg](https://ffmpeg.org/). For me, this was the single most important thing to get right because it's responsible for generating the video record (MP4) from the stream.
 
 To get the best quality for my use case I used the following settings
 
@@ -112,7 +112,7 @@ const config = {
 };
 ```
 
-You can check more info on the FFmpeg's H.264 Video Encoding settings [from here](https://trac.ffmpeg.org/wiki/Encode/H.264). 
+You can check more info on FFmpeg's H.264 Video Encoding settings [from here](https://trac.ffmpeg.org/wiki/Encode/H.264). 
 
 ### Applying authentication
 
@@ -138,7 +138,7 @@ const config = {
 
 2. Define length for your token's **expiration time** and the **name of your stream**
 
-    Easiest way to do this is to create a JavaScript file (eg. `genAuthToken.js`) and then execute it to generate the token
+    The easiest way to do this is to create a JavaScript file (eg. `genAuthToken.js`) and then execute it to generate the token
 
 ```bash
 $ cat <<EOF > genAuthToken.js
@@ -153,13 +153,13 @@ EOF
 $ node genAuthToken.js
 ```
 
-3. Generate the **final url** for the rtmp endpoint
+3. Generate the **final url** for the RTMP endpoint
 
 ```
 rtmp://<endpointaddress>/live/<nameofyourstream>?sign=<token>
 ```
 
-Couple of notes
+A couple of notes
 - The **sign** keyword can not be modified
 - This process is done **per RTMP endpoint**
 
@@ -192,7 +192,7 @@ const config = {
 
 Node.js apps are a perfect target for Docker containers. There was already [a sample Dockerfile](https://github.com/illuspas/Node-Media-Server/blob/master/Dockerfile) available in the repo but it was outdated and didn't really work.
 
-After some modifications [my version of the Dockerfile](https://github.com/Masahigo/Node-Media-Server/blob/master/Dockerfile) looked like this
+After some modifications, [my version of the Dockerfile](https://github.com/Masahigo/Node-Media-Server/blob/master/Dockerfile) looked like this
 
 ```Dockerfile
 FROM node:10.20.1-alpine as install-npm
@@ -228,19 +228,19 @@ EXPOSE 1935
 CMD ["node","app.js"]
 ```
 
-Some take aways from this
+Some takeaways from this
 
 - NMS requires `ffmpeg` version 4 or newer to function
 - Use production mode in Node.js app to optimize performance
 - Multistage build minimizes the image size
-- No need to expose port for HTTP server
+- No need to expose a port for HTTP server
 
-Build and push your version of the nms container image to [DockerHub](https://hub.docker.com/). You can find detailed instructions [here](https://github.com/Masahigo/Node-Media-Server/blob/master/readme-azure-docker.md#building-and-testing-image).
+Build and push your version of the `node-media-server` container image to [DockerHub](https://hub.docker.com/). You can find detailed instructions [here](https://github.com/Masahigo/Node-Media-Server/blob/master/readme-azure-docker.md#building-and-testing-image).
 
 ## Hosting the NMS in a container
 
 {% blockquote %}
-Up until this point there has been nothing specific to the hosting environment apart from Docker.
+Up until this point, there has been nothing specific to the hosting environment apart from Docker.
 {% endblockquote %}
 
 You could, in theory at least, host the NMS as a serverless application. I like to keep my options open though, and going with serverless usually means locking yourself to the hosting platform more tightly. Plus this type of workload where I expect a steady load and long processing times is not ideal for it.
@@ -249,13 +249,13 @@ I'm using Azure for hosting the RTMP endpoint mainly because I have some other s
 
 ### Azure Container Instances
 
-ACI has been around for a long time in Azure already and is quite mature service for this type of use case. Although MS seems to be shifting focus more to Web Apps for Containers nowadays there is still active development put into it. If you need to run a single container workload in Azure without the need for hybrid connectivity this is your go-to service.
+ACI has been around for a long time in Azure already and is quite a mature service for this type of use case. Although MS seems to be shifting focus more to Web Apps for Containers nowadays there is still active development put into it. If you need to run a single container workload in Azure without the need for hybrid connectivity this is your go-to service.
 
-The way the service works is you define the compute resources, ports and settings that your app requires and where to pull the container image from. Based on these specs ACI spins up your container and keeps it running. If you need to change any of these specs later on you terminate the instance and deploy a new one to replace it. If you've messed up something (like forget to inject environment variable that your app relies on) the runtime will try to initialize your app in a container for several times but will eventually stop trying when it detects the app is not stable to be exposed to outside world.
+The way the service works is you define the computing resources, ports, and settings that your app requires and where to pull the container image from. Based on these specs ACI spins up your container and keeps it running. If you need to change any of these specs later on you terminate the instance and deploy a new one to replace it. If you've messed up something (like forget to inject environment variable that your app relies on) the runtime will try to initialize your app in a container several times but will eventually stop trying when it detects the app is not stable to be exposed to the outside world.
 
 ### Persisting video recordings
 
-Due to the nature of containers you cannot rely on their state. Containers (and ACI) are stateless.
+Due to the nature of containers, you cannot rely on their state. Containers (and ACI) are stateless.
 
 ACI supports [mounting an Azure file share](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-volume-azure-files) for persisting data. I hadn't tried this out before but it worked like a charm.
 
@@ -290,7 +290,7 @@ _Your file share should look similar to this in Azure portal_
 
 {% asset_img storage-aci-file-share.png Azure file share for ACI %}
 
-Then when you deploy the app to ACI just map the volume mount path with same value as NMS's media root (eg. `/aci/media/`) and provide the credentials from previous step and it will just work.
+Then when you deploy the app to ACI just map the volume mount path with the same value as NMS's media root (eg. `/aci/media/`) and provide the credentials from the previous step and it will just work.
 
 ### Deployment using Azure CLI
 
@@ -369,13 +369,13 @@ You've made it this far, hurray! Now to the fun part.
 
 ### Testing locally from OBS Studio
 
-One of the take aways from my first live stream experience was introducing myself into a tool called [OBS Studio](https://obsproject.com/): a free and open source software for video recording and live streaming. It's an excellent tool for creating professional live streams for different use cases, and as it turns out, for testing RTMP endpoints as well.
+One of the learnings from my first live stream experience was getting familiar with a tool called [OBS Studio](https://obsproject.com/): free and open-source software for video recording and live streaming. It's an excellent tool for creating professional live streams for different use cases, and as it turns out, for testing RTMP endpoints as well.
 
 I'm showing here how to test against the RTMP endpoint hosted in Azure directly.
 
-- Grab the **final url** from earlier chapter (2.2). 
-  * If you haven't configured authentication to your RTMP endpoint then you can just omit the `?sign=<token>` part from the url.
-- Replace the `<endpointaddress>` part with the fqdn from your ACI
+- Grab the **final url** from the earlier chapter (2.2). 
+  * If you haven't configured authentication to your RTMP endpoint then you can just omit the `?sign=<token>` part from the URL.
+- Replace the `<endpointaddress>` part with the FQDN from your ACI
   * You can find the referenced `genObsAuth.js` file [from here](https://github.com/Masahigo/Node-Media-Server/blob/master/deployment/genObsAuth.js)
 
 ```bash
@@ -419,7 +419,7 @@ node deployment/genObsAuth.js
 
 ### Sending actual drone footage
 
-The process from DJI drone is very similar. Biggest difference is that you need to provide the **Complete url** in the Custom RTMP setting - which was sort of split into two parts when testing from OBS Studio.
+The process from the DJI drone is very similar. The biggest difference is that you need to provide the **Complete url** in the Custom RTMP setting - which was sort of split into two parts when testing from OBS Studio.
 
 1. Substitute `<yoursecret>` in `genAuthToken.js` with your own to generate `<token>`
 
@@ -435,9 +435,9 @@ EOF
 $ node genAuthToken.js
 ```
 
-2. Compose your **Complete url** substituting `<token>` with the one generated in previous step and transfer it to your mobile phone in a secure way
+2. Compose your **Complete url** substituting `<token>` with the one generated in the previous step and transfer it to your mobile phone in a secure way
   - `rtmp://my-custom-rtmp.westeurope.azurecontainer.io/live/dji?sign=<token>`
-3. Power up the drone and your remote controller + attach mobile phone to the controller
+3. Power up the drone and your remote controller + attach a mobile phone to the controller
 4. Start the _DJI 4 GO_ app
 5. Adjust the video settings for live streaming
   - **Video Format**: `MP4`
@@ -455,7 +455,7 @@ $ node genAuthToken.js
 7. Enter your **Complete url** (see step 2)
 8. Press **Next**
 9. Press **Start**
-10. Wait for a second or two and check from _DJI 4 GO's_ upper left corner the stream's status (Live Streaming), you should see the amount of seconds it has been broadcasting
+10. Wait for a second or two and check from _DJI 4 GO's_ upper left corner the stream's status (Live Streaming), you should see the number of seconds it has been broadcasting
 
 {% asset_img dji-live-streaming.jpg DJI Drone live stream being broadcasted %}
 
@@ -468,6 +468,6 @@ $ node genAuthToken.js
 Finally, you can download the MP4 from Azure storage and check the end result
 
 - Navigate to your Storage account in Azure portal
-- Download the MP4 file with the latest date and open in video player
+- Download the MP4 file with the latest date and open in a video player
 
 {% asset_img mp4-video-recording.png Playing MP4 video record streamed from DJI drone %}

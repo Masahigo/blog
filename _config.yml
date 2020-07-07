@@ -97,6 +97,7 @@ theme_config:
   scheme: Muse
   social:
     GitHub: https://github.com/masahigo || github
+  # github_banner: https://github.com/masahigo || Follow me on GitHub
   google_analytics: UA-132962403-1
   custom_file_path:
     head: source/_data/head.swig
@@ -112,6 +113,7 @@ theme_config:
   custom_logo:
     enabled: true
     image: /images/devops-dude-new.png
+  cheers_enabled: false
 
 filter_optimize:
   enable: true
