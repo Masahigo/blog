@@ -83,6 +83,10 @@ theme_config:
     theme:
       enable: false
       version: false
+  creative_commons:
+    license: by-nc-sa
+    sidebar: true
+    post: false
   seo: true
   menu:
     home: / || home
