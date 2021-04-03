@@ -13,7 +13,9 @@ categories:
   - CI/CD
   - Docker
   - Linux
+date: 2021-04-03 05:32:52
 ---
+
 
 Taking full control of your zero-downtime deployments in Azure App Service on Linux.
 
