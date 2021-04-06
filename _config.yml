@@ -5,8 +5,8 @@
 # Site
 title: MS DevOps Dude
 subtitle:
-description: Tech blog about public clouds and devops using MS stack
-keywords: devops gcp azure dotnet dotnetcore docker containers cicd
+description: Tech blog about public cloud and DevOps
+keywords: devops linux azure dotnet dotnetcore docker containers cicd
 author: Masi Malmi
 language: en
 timezone: Europe/Helsinki
